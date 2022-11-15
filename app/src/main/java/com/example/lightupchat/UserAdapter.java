@@ -1,6 +1,7 @@
 package com.example.lightupchat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,15 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHodler> 
         UserModel userModel = userModelList.get(position);
         holder.name.setText(userModel.getUserName());
         holder.email.setText(userModel.getUseremail());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ChatActivity.class);
+                intent.putExtra("id", userModel.getUsersId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
