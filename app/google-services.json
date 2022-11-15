@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1029289415455",
+    "project_id": "lightupchar",
+    "storage_bucket": "lightupchar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029289415455:android:eddffe29d0111fd8dc962a",
+        "android_client_info": {
+          "package_name": "com.example.lightupchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029289415455-ofdl3p49nh85usq1rsk56kl2fhbfs27t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACqdpNLFCJrS2Xz7SHw2AGE0VIuzhJsSo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029289415455-ofdl3p49nh85usq1rsk56kl2fhbfs27t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
