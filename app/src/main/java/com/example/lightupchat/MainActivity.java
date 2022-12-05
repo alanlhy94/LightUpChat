@@ -1,16 +1,22 @@
 package com.example.lightupchat;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.lightupchat.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,11 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     ActivityMainBinding binding;
     DatabaseReference databaseReference;
     UserAdapter userAdapter;
+    NavigationView navigationView;
+    public DrawerLayout drawerLayout;
+    public ActionBarDrawerToggle actionBarDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 userAdapter.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    String uid=dataSnapshot.getKey();
-                    if(!uid.equals(FirebaseAuth.getInstance().getUid())){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String uid = dataSnapshot.getKey();
+                    if (!uid.equals(FirebaseAuth.getInstance().getUid())) {
                         UserModel userModel = dataSnapshot.getValue(UserModel.class);
                         userAdapter.add(userModel);
                     }
@@ -55,23 +64,68 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setNavigationViewListener();
+
+        drawerLayout = findViewById(R.id.my_drawer_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.main_menu, menu);
+//        return true;
+//    }
+
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if(item.getItemId()==R.id.logout){
+//            FirebaseAuth.getInstance().signOut();
+//            startActivity(new Intent(MainActivity.this, AuthenticationActivity.class));
+//            finish();
+//            return true;
+//        }
+//        return false;
+//    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        switch (item.getItemId()) {
+            case R.id.nav_home:
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                break;
+
+            case R.id.nav_settings:
+                Toast.makeText(getApplicationContext(), "Google clicked", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.nav_logout:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this, AuthenticationActivity.class));
+                finish();
+                break;
+        }
+        //close navigation drawer
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.logout){
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MainActivity.this, AuthenticationActivity.class));
-            finish();
-            return true;
-        }
-        return false;
+    private void setNavigationViewListener() {
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 }
