@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    String receiverID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        receiverID = newConversationActivity.getReceiverID();
         userAdapter = new UserAdapter(this);
         binding.recyclerView.setAdapter(userAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -106,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
             case R.id.nav_message:
-
+                startActivity(new Intent(MainActivity.this, newConversationActivity.class));
+                break;
 
             case R.id.nav_home:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));

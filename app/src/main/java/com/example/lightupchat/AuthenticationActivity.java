@@ -79,7 +79,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         randPassword = userPassword.getRand();
     }
 
-    private void login(){
+    /*private void login(){
         FirebaseAuth
                 .getInstance()
                 .signInWithEmailAndPassword(email.trim(),password)
@@ -90,7 +90,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-    }
+    }*/
 
     private void signUp(){
         FirebaseAuth
@@ -104,7 +104,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                         //firebaseUser.updateProfile(userProfileChangeRequest);
                         UserModel userModel = new UserModel(FirebaseAuth.getInstance().getUid(),name,email,password);
                         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel);
-                        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
+                        startActivity(new Intent(AuthenticationActivity.this, newConversationActivity.class));
                         finish();
                     }
                 });

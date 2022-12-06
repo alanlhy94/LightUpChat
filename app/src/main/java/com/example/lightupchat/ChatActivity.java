@@ -29,7 +29,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     ActivityChatBinding binding;
     String recieverId;
     DatabaseReference databaseReferenceSender, databaseReferenceReciever;
-    String senderRoom, receiverRoom;
+    String senderRoom, receiverRoom, senderMessageID, receiverMessageID, conversationID1, conversationID2;
     MessageAdapter messageAdapter;
 
     public DrawerLayout drawerLayout;
@@ -43,9 +43,14 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot());
 
         recieverId = getIntent().getStringExtra("id");
+        //recieverId = FirebaseAuth.getInstance().getUid();
 
         senderRoom = FirebaseAuth.getInstance().getUid()+recieverId;
+        senderMessageID = FirebaseAuth.getInstance().getUid();
+        receiverMessageID = newConversationActivity.getReceiverID();
         receiverRoom = recieverId+FirebaseAuth.getInstance().getUid();
+        conversationID1 = senderMessageID+receiverMessageID;
+        conversationID2 = receiverMessageID+senderMessageID;
 
         messageAdapter = new MessageAdapter(this);
         binding.recycler.setAdapter(messageAdapter);
@@ -53,15 +58,22 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        databaseReferenceSender  = FirebaseDatabase.getInstance().getReference("chats").child(senderRoom);
-        databaseReferenceReciever  = FirebaseDatabase.getInstance().getReference("chats").child(receiverRoom);
+        databaseReferenceSender  = FirebaseDatabase.getInstance().getReference("chats").child(conversationID1);
+        databaseReferenceReciever  = FirebaseDatabase.getInstance().getReference("chats").child(conversationID2);
 
         databaseReferenceSender.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messageAdapter.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    MessageModel messageModel = dataSnapshot.getValue(MessageModel.class);
+                    //MessageModel messageModel = dataSnapshot.getValue(MessageModel.class);
+                    MessageModel messageModel = null;
+                    if(FirebaseAuth.getInstance().getUid()==senderMessageID){
+                        messageModel = dataSnapshot.child(conversationID1).getValue(MessageModel.class);
+                    }
+                    else if(FirebaseAuth.getInstance().getUid()==receiverMessageID){
+                        messageModel = dataSnapshot.child(conversationID2).getValue(MessageModel.class);
+                    }
                     messageAdapter.add(messageModel);
                 }
             }
@@ -99,6 +111,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void sendMessage(String message) {
+
         String messageId = UUID.randomUUID().toString();
         MessageModel messageModel = new MessageModel(messageId,FirebaseAuth.getInstance().getUid(), message);
 

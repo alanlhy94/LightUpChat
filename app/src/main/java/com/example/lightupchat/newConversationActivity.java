@@ -8,6 +8,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +21,11 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
     NavigationView navigationView;
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle actionBarDrawerToggle;
+    EditText inputBox;
+    Button submit;
+    static String receiverID;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +42,21 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        inputBox = findViewById(R.id.codeInputBox);
+        submit = findViewById(R.id.codeSubmitButton);
+
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                receiverID = inputBox.getText().toString();
+                startActivity(new Intent(newConversationActivity.this, ChatActivity.class));
+            }
+        });
+
+    }
+
+    public static String getReceiverID(){
+        return receiverID;
     }
 
     @Override
