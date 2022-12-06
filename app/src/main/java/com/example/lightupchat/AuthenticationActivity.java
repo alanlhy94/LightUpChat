@@ -20,6 +20,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     ActivityAuthenticationBinding binding;
     String name,email,password;
     DatabaseReference databaseReference;
+    int randID, randPassword;
+    String mailDomain = "@lightupapp.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,20 +33,29 @@ public class AuthenticationActivity extends AppCompatActivity {
         binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                email=binding.textEmail.getText().toString();
-                password=binding.textPassword.getText().toString();
+                //email=binding.textEmail.getText().toString();
+                //password=binding.textPassword.getText().toString();
 
-                login();
+
+
+                //login();
+                signUp();
             }
         });
         binding.signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name=binding.textName.getText().toString();
-                email=binding.textEmail.getText().toString();
-                password=binding.textPassword.getText().toString();
 
-                signUp();
+                accountGenerate();
+
+                //name=binding.textName.getText().toString();
+                email=randID+mailDomain;
+                password=Integer.toString(randPassword);
+
+
+                binding.textEmail.setText(Integer.toString(randID));
+
+
             }
         });
     }
@@ -56,6 +67,16 @@ public class AuthenticationActivity extends AppCompatActivity {
             startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
             finish();
         }
+    }
+
+    private void accountGenerate(){
+        RandomGenerate userID = new RandomGenerate();
+        userID.generate();
+        randID = userID.getRand();
+
+        RandomGenerate userPassword = new RandomGenerate();
+        userPassword.generate();
+        randPassword = userPassword.getRand();
     }
 
     private void login(){
@@ -78,9 +99,9 @@ public class AuthenticationActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
-                        UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                        firebaseUser.updateProfile(userProfileChangeRequest);
+                        //UserProfileChangeRequest userProfileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                        //FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        //firebaseUser.updateProfile(userProfileChangeRequest);
                         UserModel userModel = new UserModel(FirebaseAuth.getInstance().getUid(),name,email,password);
                         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel);
                         startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));

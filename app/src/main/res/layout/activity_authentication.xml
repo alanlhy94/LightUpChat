@@ -22,29 +22,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/textName"
-            android:inputType="textCapWords"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:hint="Name"/>
-
-        <EditText
+        <TextView
             android:id="@+id/textEmail"
-            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="text"
             android:padding="15dp"
-            android:hint="Email"/>
-
-        <EditText
-            android:id="@+id/textPassword"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:hint="Password"/>
+            android:text="Generating..."
+            android:textSize="20sp" />
 
 
     </LinearLayout>
@@ -61,17 +46,18 @@
         android:weightSum="2"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp">
+
         <TextView
             android:id="@+id/signUp"
-            android:layout_marginRight="10dp"
-            android:background="@color/teal_700"
-            android:textColor="@color/white"
-            android:gravity="center"
-            android:text="SignUp"
-            android:textSize="20sp"
-            android:layout_weight="1"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"/>
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/teal_700"
+            android:gravity="center"
+            android:text="Generate"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/login"
