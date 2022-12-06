@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
+            case R.id.nav_message:
+
+
             case R.id.nav_home:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break;
@@ -122,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //close navigation drawer
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void newConversation(){
+
     }
 
     private void setNavigationViewListener() {

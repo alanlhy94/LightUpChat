@@ -4,6 +4,11 @@
     tools:ignore="HardcodedText"
     tools:showIn="navigation_view">
     <group android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/nav_message"
+        android:title="New Conversation" />
+
     <item
         android:id="@+id/nav_home"
         android:title="Home Page" />

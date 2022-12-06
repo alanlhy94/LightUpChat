@@ -79,6 +79,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 String message = binding.msgEdit.getText().toString();
                 if(message.trim().length()>0){
                     sendMessage(message);
+                    binding.msgEdit.setText("");
                 }
             }
         });
