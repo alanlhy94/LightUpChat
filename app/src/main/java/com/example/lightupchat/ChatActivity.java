@@ -129,9 +129,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(ChatActivity.this, MainActivity.class));
                 break;
 
-            case R.id.nav_settings:
-                Toast.makeText(getApplicationContext(), "Google clicked", Toast.LENGTH_LONG).show();
-                break;
 
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
