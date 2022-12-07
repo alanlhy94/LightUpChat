@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -54,8 +55,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String uid = dataSnapshot.getKey();
                     if (!uid.equals(FirebaseAuth.getInstance().getUid())) {
-                        UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                        userAdapter.add(userModel);
+                        System.out.println("THIS IS::::::::::::::"+receiverID);
+                        if((receiverID+"@lightupapp.com")==FirebaseAuth.getInstance().getCurrentUser().getEmail()){
+                            UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                            userAdapter.add(userModel);
+                        }
+
                     }
                 }
             }
