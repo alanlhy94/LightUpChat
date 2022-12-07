@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.lightupchat.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,10 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     String uid = dataSnapshot.getKey();
                     if (!uid.equals(FirebaseAuth.getInstance().getUid())) {
-                        System.out.println("THIS IS::::::::::::::"+receiverID);
+
                         UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                        if((receiverID+"@lightupapp.com")== userModel.getUseremail()){
-                            userAdapter.add(userModel);
+                        //System.out.println("THIS IS::::::::::::::"+userModel.getUseremail());
+                        userAdapter.add(userModel);
+                        if((receiverID+"@lightupapp.com").equals(userModel.getUseremail())){
+
                         }
 
                     }
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawerLayout = findViewById(R.id.my_drawer_layout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close);
+
 
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
@@ -109,6 +113,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
+    protected void onStop(){
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
@@ -127,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 finish();
                 break;
         }
+
         //close navigation drawer
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
