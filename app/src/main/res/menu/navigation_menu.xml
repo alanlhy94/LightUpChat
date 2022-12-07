@@ -19,5 +19,11 @@
         android:id="@+id/nav_logout"
         android:title="New Session"
         android:icon="@drawable/ic_newsession"/>
+
+        <item
+            android:id="@+id/nav_code"
+            android:title="Your code: "
+            android:icon="@drawable/ic_code"/>
+
     </group>
 </menu>

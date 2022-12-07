@@ -141,6 +141,10 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(ChatActivity.this, MainActivity.class));
                 break;
 
+            case R.id.nav_message:
+                startActivity(new Intent(ChatActivity.this, newConversationActivity.class));
+                break;
+
 
             case R.id.nav_logout:
                 FirebaseAuth.getInstance().signOut();
