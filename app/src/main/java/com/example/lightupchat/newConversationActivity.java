@@ -42,7 +42,7 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        inputBox = findViewById(R.id.codeInputBox);
+        /*inputBox = findViewById(R.id.codeInputBox);
         submit = findViewById(R.id.codeSubmitButton);
 
         submit.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +51,7 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
                 receiverID = inputBox.getText().toString();
                 startActivity(new Intent(newConversationActivity.this, ChatActivity.class));
             }
-        });
+        });*/
 
     }
 
