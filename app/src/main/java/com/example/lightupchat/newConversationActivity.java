@@ -71,7 +71,7 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
-            case R.id.nav_message:
+//            case R.id.nav_message:
 
 
             case R.id.nav_home:
