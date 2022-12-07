@@ -165,9 +165,9 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    @Override
+    /*@Override
     protected void onDestroy(){
         super.onDestroy();
         FirebaseAuth.getInstance().signOut();
-    }
+    }*/
 }

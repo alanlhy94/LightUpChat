@@ -111,11 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        FirebaseAuth.getInstance().signOut();
-    }
+
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
