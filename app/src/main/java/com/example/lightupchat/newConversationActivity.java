@@ -104,11 +104,6 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        FirebaseAuth.getInstance().signOut();
-    }
 
     @Override
     protected void onDestroy(){

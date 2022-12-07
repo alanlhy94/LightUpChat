@@ -58,11 +58,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (!uid.equals(FirebaseAuth.getInstance().getUid())) {
 
                         UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                        //System.out.println("THIS IS::::::::::::::"+userModel.getUseremail());
-                        userAdapter.add(userModel);
-                        if((receiverID+"@lightupapp.com").equals(userModel.getUseremail())){
 
-                        }
+                        userAdapter.add(userModel);
 
                     }
                 }
@@ -112,11 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        FirebaseAuth.getInstance().signOut();
-    }
+
 
     @Override
     protected void onDestroy(){

@@ -29,7 +29,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     ActivityChatBinding binding;
     String recieverId;
     DatabaseReference databaseReferenceSender, databaseReferenceReciever;
-    String senderRoom, receiverRoom, senderMessageID, receiverMessageID, conversationID1, conversationID2;
+    String senderRoom, receiverRoom;
     MessageAdapter messageAdapter;
 
     public DrawerLayout drawerLayout;
@@ -43,14 +43,11 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         setContentView(binding.getRoot());
 
         recieverId = getIntent().getStringExtra("id");
-        //recieverId = FirebaseAuth.getInstance().getUid();
+
 
         senderRoom = FirebaseAuth.getInstance().getUid()+recieverId;
-        senderMessageID = FirebaseAuth.getInstance().getUid();
-        receiverMessageID = newConversationActivity.getReceiverID();
         receiverRoom = recieverId+FirebaseAuth.getInstance().getUid();
-        //conversationID1 = senderMessageID+receiverMessageID;
-        //conversationID2 = receiverMessageID+senderMessageID;
+
 
         messageAdapter = new MessageAdapter(this);
         binding.recycler.setAdapter(messageAdapter);
@@ -67,12 +64,6 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 messageAdapter.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     MessageModel messageModel = dataSnapshot.getValue(MessageModel.class);
-                    /*if(FirebaseAuth.getInstance().getUid()==senderMessageID){
-                        messageModel = dataSnapshot.child(conversationID1).getValue(MessageModel.class);
-                    }
-                    else if(FirebaseAuth.getInstance().getUid()==receiverMessageID){
-                        messageModel = dataSnapshot.child(conversationID2).getValue(MessageModel.class);
-                    }*/
                     messageAdapter.add(messageModel);
                 }
             }
@@ -172,11 +163,7 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
         super.onPointerCaptureChanged(hasCapture);
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        FirebaseAuth.getInstance().signOut();
-    }
+
 
     @Override
     protected void onDestroy(){

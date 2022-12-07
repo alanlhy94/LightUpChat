@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class showMyCodeActivity extends AppCompatActivity {
 
     TextView code;
@@ -19,5 +21,10 @@ public class showMyCodeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
 
 }

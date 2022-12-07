@@ -110,21 +110,10 @@ public class AuthenticationActivity extends AppCompatActivity {
                         //firebaseUser.updateProfile(userProfileChangeRequest);
                         UserModel userModel = new UserModel(FirebaseAuth.getInstance().getUid(),name,email,password);
                         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(userModel);
-                        startActivity(new Intent(AuthenticationActivity.this, newConversationActivity.class));
+                        startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
                         finish();
                     }
                 });
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-        FirebaseAuth.getInstance().signOut();
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        FirebaseAuth.getInstance().signOut();
-    }
 }
