@@ -172,4 +172,16 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
+    }
 }

@@ -21,6 +21,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     String name,email,password;
     DatabaseReference databaseReference;
     int randID, randPassword;
+    static int showID=0;
     String mailDomain = "@lightupapp.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +70,19 @@ public class AuthenticationActivity extends AppCompatActivity {
         }
     }
 
+    public static int getShowID(){
+        return showID;
+    }
     private void accountGenerate(){
         RandomGenerate userID = new RandomGenerate();
         userID.generate();
         randID = userID.getRand();
+        showID = randID;
 
         RandomGenerate userPassword = new RandomGenerate();
         userPassword.generate();
         randPassword = userPassword.getRand();
+
     }
 
     /*private void login(){
@@ -108,5 +114,17 @@ public class AuthenticationActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        FirebaseAuth.getInstance().signOut();
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        FirebaseAuth.getInstance().signOut();
     }
 }
