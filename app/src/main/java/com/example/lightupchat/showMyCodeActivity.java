@@ -14,7 +14,7 @@ public class showMyCodeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_showmycode);
 
         code = findViewById(R.id.codeLable);
-        code.setText(AuthenticationActivity.getShowID());
+        code.setText(Integer.toString(AuthenticationActivity.getShowID()));
 
 
     }

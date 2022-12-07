@@ -65,7 +65,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-            startActivity(new Intent(AuthenticationActivity.this, newConversationActivity.class));
+            startActivity(new Intent(AuthenticationActivity.this, MainActivity.class));
             finish();
         }
     }
