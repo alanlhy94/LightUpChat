@@ -56,9 +56,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String uid = dataSnapshot.getKey();
                     if (!uid.equals(FirebaseAuth.getInstance().getUid())) {
                         System.out.println("THIS IS::::::::::::::"+receiverID);
+                        UserModel userModel = dataSnapshot.getValue(UserModel.class);
+                        userAdapter.add(userModel);
                         if((receiverID+"@lightupapp.com")==FirebaseAuth.getInstance().getCurrentUser().getEmail()){
-                            UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                            userAdapter.add(userModel);
+
                         }
 
                     }
