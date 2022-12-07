@@ -84,6 +84,10 @@ public class newConversationActivity extends AppCompatActivity implements Naviga
                 startActivity(new Intent(newConversationActivity.this, AuthenticationActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_code:
+                startActivity(new Intent(newConversationActivity.this, showMyCodeActivity.class));
+                break;
         }
         //close navigation drawer
         drawerLayout.closeDrawer(GravityCompat.START);
