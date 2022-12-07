@@ -151,6 +151,12 @@ public class ChatActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(new Intent(ChatActivity.this, AuthenticationActivity.class));
                 finish();
                 break;
+
+            case R.id.nav_code:
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ChatActivity.this, showMyCodeActivity.class));
+                finish();
+                break;
         }
         //close navigation drawer
         drawerLayout.closeDrawer(GravityCompat.START);
